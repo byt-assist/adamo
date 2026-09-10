@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADAMO Fintech — BYT Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F5F0E8; color: #1A1A1A; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
+        
+        .header { position: fixed; top: 0; left: 0; width: 100%; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(245, 240, 232, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .logo img { height: 32px; width: auto; }
+        .nav a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-left: 30px; opacity: 0.6; color: #1A1A1A; text-decoration: none; transition: opacity 0.3s; font-weight: 500; }
+        .nav a:hover { opacity: 1; }
+        .nav a.active { opacity: 1; color: #C9A84C; }
+        
+        .page-hero { padding: 120px 0 60px; text-align: center; background: #FFFFFF; }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; letter-spacing: 2px; }
+        .page-title span { color: #C9A84C; }
+        .page-subtitle { font-size: 16px; opacity: 0.5; margin-top: 12px; }
+        
+        .fintech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 40px 0; }
+        .fintech-card { background: #FFFFFF; padding: 30px; border-radius: 4px; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .fintech-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        .fintech-card .icon { font-size: 40px; margin-bottom: 16px; }
+        .fintech-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px; }
+        .fintech-card p { font-size: 14px; opacity: 0.6; }
+        .fintech-card .tag { display: inline-block; background: #C9A84C; color: #FFFFFF; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 12px; }
+        
+        .marketplace-section { padding: 60px 0; border-top: 1px solid rgba(0,0,0,0.05); }
+        .marketplace-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .marketplace-item { background: #FFFFFF; padding: 20px; border-radius: 4px; text-align: center; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .marketplace-item:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        .marketplace-item .price { color: #C9A84C; font-weight: 700; font-size: 20px; margin: 8px 0; }
+        .marketplace-item .btn { display: inline-block; padding: 8px 24px; background: transparent; border: 1px solid #C9A84C; color: #C9A84C; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; cursor: pointer; text-decoration: none; }
+        .marketplace-item .btn:hover { background: #C9A84C; color: #FFFFFF; }
+        
+        .counter-section { padding: 60px 0; background: #FFFFFF; }
+        .counter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 800px; margin: 0 auto; text-align: center; }
+        .counter-item { padding: 30px; background: #F5F0E8; border-radius: 4px; }
+        .counter-number { font-family: 'Playfair Display', serif; font-size: 56px; color: #C9A84C; }
+        .counter-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.5; margin-top: 8px; }
+        .counter-timestamp { font-size: 10px; opacity: 0.3; margin-top: 16px; font-family: 'Courier New', monospace; }
+        
+        .footer { padding: 60px 0 30px; background: #1A1A1A; color: #FFFFFF; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; }
+        .footer-brand img { height: 28px; width: auto; }
+        .footer-links { display: flex; gap: 30px; }
+        .footer-links a { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.4; color: #FFFFFF; text-decoration: none; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-disclaimer { width: 100%; font-size: 10px; opacity: 0.3; text-align: center; margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        
+        @media (max-width: 992px) {
+            .fintech-grid { grid-template-columns: 1fr 1fr; }
+            .marketplace-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .fintech-grid { grid-template-columns: 1fr; }
+            .marketplace-grid { grid-template-columns: 1fr; }
+            .counter-grid { grid-template-columns: 1fr; gap: 30px; }
+            .page-title { font-size: 32px; }
+            .header { padding: 12px 20px; flex-wrap: wrap; gap: 10px; }
+            .nav a { margin-left: 16px; font-size: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><img src="adamo_logo.png" alt="ADAMO" height="32"></a>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="fintech.html" class="active">Fintech</a>
+            <a href="editorial.html">Editorial</a>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1 class="page-title">ADAMO <span>Fintech</span></h1>
+        <p class="page-subtitle">Italian luxury financial products for the BYT ecosystem</p>
+    </section>
+
+    <div class="container">
+        <div class="fintech-grid">
+            <div class="fintech-card">
+                <div class="icon">💳</div>
+                <h3>P2P Lending</h3>
+                <p>Borrow and lend ADAMO, BYT, and other ecosystem tokens with competitive rates.</p>
+                <span class="tag">APY up to 18%</span>
+            </div>
+            <div class="fintech-card">
+                <div class="icon">🔄</div>
+                <h3>Cross-Chain Swap</h3>
+                <p>Swap ADAMO tokens across Solana, Ethereum, and BSC with minimal fees.</p>
+                <span class="tag">0.3% fee</span>
+            </div>
+            <div class="fintech-card">
+                <div class="icon">📊</div>
+                <h3>Staking Dashboard</h3>
+                <p>Monitor your staking positions, APY, and rewards in real-time.</p>
+                <span class="tag">Live tracking</span>
+            </div>
+            <div class="fintech-card">
+                <div class="icon">🏦</div>
+                <h3>Liquidity Pools</h3>
+                <p>Provide liquidity to ADAMO/USDT pools. Earn trading fees + BYT rewards.</p>
+                <span class="tag">+15% APY</span>
+            </div>
+            <div class="fintech-card">
+                <div class="icon">🔐</div>
+                <h3>Escrow Service</h3>
+                <p>Secure P2P transactions with smart contract escrow for OTC trades.</p>
+                <span class="tag">Multi-sig</span>
+            </div>
+            <div class="fintech-card">
+                <div class="icon">📈</div>
+                <h3>Yield Farming</h3>
+                <p>Farm BYT tokens by providing liquidity to the ADAMO ecosystem.</p>
+                <span class="tag">Up to 40% APY</span>
+            </div>
+        </div>
+
+        <section class="marketplace-section">
+            <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;letter-spacing:1px;text-align:center;margin-bottom:40px;">Marketplace <span style="color:#C9A84C;">Assets</span></h2>
+            <div class="marketplace-grid">
+                <div class="marketplace-item">
+                    <div style="font-size:40px;margin-bottom:8px;">🏠</div>
+                    <h4>Italian Villa</h4>
+                    <div class="price">8,000 USDT</div>
+                    <a href="#" class="btn">View</a>
+                </div>
+                <div class="marketplace-item">
+                    <div style="font-size:40px;margin-bottom:8px;">💎</div>
+                    <h4>Luxury NFT</h4>
+                    <div class="price">1,500 USDT</div>
+                    <a href="#" class="btn">View</a>
+                </div>
+                <div class="marketplace-item">
+                    <div style="font-size:40px;margin-bottom:8px;">🖼️</div>
+                    <h4>ADAMO Capsule</h4>
+                    <div class="price">2,800 USDT</div>
+                    <a href="#" class="btn">View</a>
+                </div>
+                <div class="marketplace-item">
+                    <div style="font-size:40px;margin-bottom:8px;">👗</div>
+                    <h4>Digital Collection</h4>
+                    <div class="price">900 USDT</div>
+                    <a href="#" class="btn">View</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="counter-section">
+        <div class="container">
+            <div class="counter-grid">
+                <div class="counter-item">
+                    <div class="counter-number counter-visitors">119,800</div>
+                    <div class="counter-label">Unique Visitors</div>
+                    <div class="counter-timestamp counter-visitor-time">Since 2026</div>
+                </div>
+                <div class="counter-item">
+                    <div class="counter-number counter-clients">36</div>
+                    <div class="counter-label">Active Clients</div>
+                    <div class="counter-timestamp counter-client-time">Verified on-chain</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand"><img src="adamo_logo.png" alt="ADAMO" height="28"></div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="fintech.html">Fintech</a>
+                    <a href="editorial.html">Editorial</a>
+                </div>
+            </div>
+            <div class="footer-disclaimer">⚠️ ADAMO is an independent SPL token. Not affiliated with ADAMO SPA. Part of BYT ecosystem.</div>
+        </div>
+    </footer>
+
+    <script src="counter.js"></script>
+</body>
+</html>
