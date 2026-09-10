@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADAMO — Adaptive Decentralized Autonomous Mobility Oracle | BYT Ecosystem</title>
+    <meta name="description" content="ADAMO is the Italian luxury token of the BYT ecosystem for Adaptive Decentralized Autonomous Mobility Oracle. Bridge physical movement to blockchain.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F5F0E8; color: #1A1A1A; line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.3s ease;
+            color: #FFFFFF;
+        }
+        .header.scrolled {
+            background: rgba(245, 240, 232, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 40px;
+            color: #1A1A1A;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        .header.scrolled .nav a { color: #1A1A1A; }
+        .header.scrolled .wallet-btn { border-color: #1A1A1A; color: #1A1A1A; }
+        .header.scrolled .wallet-btn:hover { background: #1A1A1A; color: #F5F0E8; }
+        .header.scrolled .lang-select { border-color: #1A1A1A; color: #1A1A1A; }
+        
+        .logo img { height: 36px; width: auto; display: block; }
+        .nav a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-left: 30px; opacity: 0.7; transition: opacity 0.3s; font-weight: 500; }
+        .nav a:hover { opacity: 1; }
+        .header-controls { display: flex; align-items: center; gap: 16px; }
+        .lang-select { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #FFFFFF; padding: 8px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+        .lang-select option { background: #1A1A1A; color: #FFFFFF; }
+        .wallet-btn { background: transparent; border: 1px solid #C9A84C; color: #C9A84C; padding: 8px 20px; border-radius: 30px; font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+        .wallet-btn:hover { background: #C9A84C; color: #FFFFFF; }
+        
+        /* HERO */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: #0A0A0A;
+        }
+        .hero-video {
+            position: absolute;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+            color: #FFFFFF;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(201, 168, 76, 0.2);
+            padding: 6px 24px;
+            border-radius: 30px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #C9A84C;
+            margin-bottom: 30px;
+            font-weight: 500;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 100px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+        .hero-title span { color: #C9A84C; }
+        .hero-subtitle {
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin-bottom: 40px;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-value { font-family: 'Playfair Display', serif; font-size: 28px; color: #C9A84C; letter-spacing: 1px; }
+        .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; margin-top: 4px; }
+        
+        /* ABOUT */
+        .about { padding: 100px 0; background: #F5F0E8; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-image img { width: 100%; height: 500px; object-fit: cover; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .about-text h2 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; }
+        .about-text h2 span { color: #C9A84C; }
+        .about-text p { font-size: 16px; opacity: 0.7; margin-bottom: 30px; line-height: 1.8; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .feature { background: #FFFFFF; padding: 20px; border-radius: 4px; text-align: center; border-bottom: 2px solid #C9A84C; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .feature-icon { font-size: 28px; margin-bottom: 8px; }
+        .feature-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* ECOSYSTEM */
+        .ecosystem { padding: 100px 0; background: #FFFFFF; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; letter-spacing: 2px; }
+        .section-header h2 span { color: #C9A84C; }
+        .section-header p { font-size: 16px; opacity: 0.5; margin-top: 12px; }
+        .brand-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .brand-card { background: #F5F0E8; padding: 24px 16px; border-radius: 4px; text-align: center; transition: all 0.3s ease; border: 1px solid transparent; }
+        .brand-card:hover { border-color: #C9A84C; transform: translateY(-4px); }
+        .brand-logo { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
+        .brand-name { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
+        .brand-price { font-size: 11px; color: #C9A84C; margin-top: 4px; font-weight: 600; }
+        
+        /* COLLECTION */
+        .collection { padding: 100px 0; background: #F5F0E8; }
+        .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .collection-card { position: relative; overflow: hidden; border-radius: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .collection-card img { width: 100%; height: 400px; object-fit: cover; transition: all 0.5s ease; }
+        .collection-card:hover img { transform: scale(1.03); }
+        .collection-card .overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: #FFFFFF;
+        }
+        .collection-card .overlay h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; letter-spacing: 1px; }
+        .collection-card .overlay p { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+        
+        /* STAKING */
+        .staking { padding: 100px 0; background: #FFFFFF; }
+        .staking-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .pool-card { background: #F5F0E8; padding: 40px 30px; border-radius: 4px; text-align: center; transition: all 0.3s ease; }
+        .pool-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        .pool-card.premium { border: 2px solid #C9A84C; }
+        .pool-icon { font-size: 40px; margin-bottom: 16px; }
+        .pool-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px; }
+        .apy { font-size: 32px; font-weight: 700; color: #C9A84C; margin: 16px 0; }
+        .apy small { font-size: 14px; font-weight: 400; color: #1A1A1A; opacity: 0.4; }
+        .pool-desc { font-size: 13px; opacity: 0.6; margin-bottom: 20px; }
+        .pool-btn { display: inline-block; padding: 10px 28px; background: transparent; border: 1px solid #1A1A1A; color: #1A1A1A; border-radius: 30px; transition: all 0.3s ease; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; font-weight: 500; cursor: pointer; }
+        .pool-btn:hover { background: #1A1A1A; color: #F5F0E8; }
+        
+        /* LIQUIDITY */
+        .liquidity-section { padding: 80px 0; background: #F5F0E8; }
+        
+        /* CONTRACT */
+        .contract-section { padding: 60px 0; background: #FFFFFF; }
+        .contract-box { max-width: 900px; margin: 0 auto; text-align: center; padding: 30px; background: #F5F0E8; border-radius: 4px; border: 1px solid rgba(201,168,76,0.2); }
+        .contract-box h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.5; margin-bottom: 12px; }
+        .contract-box code { font-family: 'Courier New', monospace; font-size: 14px; color: #C9A84C; word-break: break-all; display: block; margin: 16px 0; padding: 12px; background: #FFFFFF; border-radius: 4px; border: 1px solid rgba(201,168,76,0.3); }
+        .contract-box .copy-btn { background: #C9A84C; border: none; color: #FFFFFF; padding: 8px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; }
+        .contract-box .copy-btn:hover { background: #b8973f; }
+        .contract-box .links { margin-top: 16px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .contract-box .links a { font-size: 12px; color: #C9A84C; text-decoration: underline; opacity: 0.7; transition: opacity 0.3s; }
+        .contract-box .links a:hover { opacity: 1; }
+        
+        /* COUNTER */
+        .counter-section { padding: 60px 0; background: #F5F0E8; }
+        .counter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 800px; margin: 0 auto; text-align: center; }
+        .counter-item { padding: 30px; background: #FFFFFF; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .counter-number { font-family: 'Playfair Display', serif; font-size: 56px; color: #C9A84C; letter-spacing: 2px; }
+        .counter-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.5; margin-top: 8px; }
+        .counter-timestamp { font-size: 10px; opacity: 0.3; margin-top: 16px; font-family: 'Courier New', monospace; }
+        
+        /* TICKER */
+        .ticker { background: #1A1A1A; padding: 10px 0; overflow: hidden; }
+        .ticker-content { display: flex; animation: ticker-scroll 25s linear infinite; white-space: nowrap; }
+        .ticker-item { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; padding: 0 40px; opacity: 0.7; font-weight: 300; color: #FFFFFF; }
+        .ticker-item span { color: #C9A84C; font-weight: 600; }
+        @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        /* FOOTER */
+        .footer { padding: 60px 0 30px; background: #1A1A1A; color: #FFFFFF; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; }
+        .footer-brand img { height: 28px; width: auto; }
+        .footer-links { display: flex; gap: 30px; }
+        .footer-links a { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.4; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-disclaimer { width: 100%; font-size: 10px; opacity: 0.3; text-align: center; margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .hero-title { font-size: 64px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .brand-grid { grid-template-columns: repeat(3, 1fr); }
+            .collection-grid { grid-template-columns: 1fr 1fr; }
+            .staking-grid { grid-template-columns: 1fr 1fr; }
+            .counter-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .header { padding: 16px 20px; flex-wrap: wrap; gap: 10px; }
+            .nav a { margin-left: 16px; font-size: 10px; }
+            .hero-title { font-size: 48px; letter-spacing: -1px; }
+            .hero-stats { gap: 20px; }
+            .brand-grid { grid-template-columns: repeat(2, 1fr); }
+            .collection-grid { grid-template-columns: 1fr; }
+            .staking-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .counter-number { font-size: 40px; }
+            .contract-box code { font-size: 12px; }
+        }
+        @media (max-width: 480px) {
+            .hero-title { font-size: 36px; }
+            .hero-subtitle { font-size: 12px; letter-spacing: 4px; }
+            .brand-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <a href="index.html" class="logo">
+            <img src="adamo_logo.png" alt="ADAMO" height="36">
+        </a>
+        <nav class="nav">
+            <a href="#about" data-i18n="nav_about">About</a>
+            <a href="#collection" data-i18n="nav_collection">Collection</a>
+            <a href="#staking" data-i18n="nav_staking">Staking</a>
+            <a href="fintech.html" data-i18n="nav_fintech">Fintech</a>
+            <a href="editorial.html" data-i18n="nav_editorial">Editorial</a>
+        </nav>
+        <div class="header-controls">
+            <select class="lang-select" id="langSelect">
+                <option value="en">🇬🇧 EN</option>
+                <option value="ru">🇷🇺 RU</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="es">🇪🇸 ES</option>
+                <option value="fr">🇫🇷 FR</option>
+                <option value="de">🇩🇪 DE</option>
+                <option value="it">🇮🇹 IT</option>
+                <option value="pt">🇵🇹 PT</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="ar">🇸🇦 العربية</option>
+            </select>
+            <button class="wallet-btn" id="connectWallet" data-i18n="wallet_btn">Connect Wallet</button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="video-adamo-hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <div class="hero-badge" data-i18n="hero_badge">⚡ Adaptive Decentralized Autonomous Mobility Oracle</div>
+            <h1 class="hero-title">ADAMO <span>.</span></h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">Bridge Movement to Blockchain — Stake for Rewards</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">$1.00</div>
+                    <div class="stat-label" data-i18n="stat_price">ADAMO Price</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">$10B</div>
+                    <div class="stat-label" data-i18n="stat_mcap">Market Cap</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label" data-i18n="stat_holders">Holders</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">$299M</div>
+                    <div class="stat-label" data-i18n="stat_liquidity">Liquidity</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="photo-adamo-model-woman.jpg" alt="ADAMO" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <h2 data-i18n="about_title">ADAMO — <span>Not a Meme</span></h2>
+                    <p data-i18n="about_desc">Adaptive Decentralized Autonomous Mobility Oracle. The Italian luxury gateway token of the BYT ecosystem, designed to bridge physical movement to the blockchain. Built for elegance, innovation, and mobility.</p>
+                    <div class="about-features">
+                        <div class="feature"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="feature_mobility">Mobility Bridge</div></div>
+                        <div class="feature"><div class="feature-icon">🌐</div><div class="feature-title" data-i18n="feature_oracle">Autonomous Oracle</div></div>
+                        <div class="feature"><div class="feature-icon">🔗</div><div class="feature-title" data-i18n="feature_gateway">Adaptive Gateway</div></div>
+                        <div class="feature"><div class="feature-icon">🏆</div><div class="feature-title" data-i18n="feature_rewards">Stake for Rewards</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ECOSYSTEM -->
+    <section class="ecosystem" id="ecosystem">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="ecosystem_title">BYT <span>Ecosystem</span></h2>
+                <p data-i18n="ecosystem_desc">12 brand tokens in one ecosystem</p>
+            </div>
+            <div class="brand-grid">
+                <div class="brand-card"><div class="brand-logo">ADAMO</div><div class="brand-name">ADAMO</div><div class="brand-price">$1.00</div></div>
+                <div class="brand-card"><div class="brand-logo">COS</div><div class="brand-name">COS</div><div class="brand-price">$1.00</div></div>
+                <div class="brand-card"><div class="brand-logo">GUCCI</div><div class="brand-name">GUCCI</div><div class="brand-price">$1.00</div></div>
+                <div class="brand-card"><div class="brand-logo">DKNY</div><div class="brand-name">Donna Kahn NY</div><div class="brand-price">$1.00</div></div>
+                <div class="brand-card"><div class="brand-logo">NIKE</div><div class="brand-name">Nike</div><div class="brand-price">$1.00</div></div>
+                <div class="brand-card"><div class="brand-logo">PUMA</div><div class="brand-name">PUMA</div><div class="brand-price">$1.00</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTION (video) -->
+    <section class="collection" id="collection" style="position:relative;overflow:hidden;background:#0A0A0A;">
+        <video autoplay muted loop playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+            <source src="video-adamo-collection.mp4" type="video/mp4">
+        </video>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:1;"></div>
+        <div class="container" style="position:relative;z-index:2;color:#FFFFFF;">
+            <div class="section-header">
+                <h2 style="color:#FFFFFF;" data-i18n="collection_title">ADAMO <span>Collection</span></h2>
+                <p style="color:#FFFFFF;opacity:0.7;" data-i18n="collection_desc">Italian luxury capsules & digital fashion</p>
+            </div>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <img src="photo-adamo-studio.jpg" alt="ADAMO Studio" loading="lazy">
+                    <div class="overlay">
+                        <h3>Studio Collection</h3>
+                        <p>Italian elegance. Timeless design.</p>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="photo-adamo-model-man.jpg" alt="ADAMO Man" loading="lazy">
+                    <div class="overlay">
+                        <h3>Man Collection</h3>
+                        <p>Tailored. Refined. Iconic.</p>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="photo-adamo-details.jpg" alt="ADAMO Details" loading="lazy">
+                    <div class="overlay">
+                        <h3>Details & Craftsmanship</h3>
+                        <p>Crafted. Precise. Elevated.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STAKING -->
+    <section class="staking" id="staking">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="staking_title">Staking <span>ADAMO</span></h2>
+                <p data-i18n="staking_desc">Earn up to 30% APY in BYT tokens</p>
+            </div>
+            <div class="staking-grid">
+                <div class="pool-card">
+                    <div class="pool-icon">💎</div>
+                    <h3 data-i18n="pool_basic_title">Basic Pool</h3>
+                    <div class="apy">15% <small data-i18n="apy_label">APY</small></div>
+                    <p class="pool-desc" data-i18n="pool_basic_desc">Entry level for all holders</p>
+                    <a href="#" class="pool-btn" data-i18n="pool_btn">Stake Now</a>
+                </div>
+                <div class="pool-card premium">
+                    <div class="pool-icon">👑</div>
+                    <h3 data-i18n="pool_premium_title">Premium Pool</h3>
+                    <div class="apy">30% <small data-i18n="apy_label">APY</small></div>
+                    <p class="pool-desc" data-i18n="pool_premium_desc">Requires 1,000 ADAMO staked</p>
+                    <a href="#" class="pool-btn" data-i18n="pool_btn">Stake Now</a>
+                </div>
+                <div class="pool-card">
+                    <div class="pool-icon">🌟</div>
+                    <h3 data-i18n="pool_creator_title">Creator Pool</h3>
+                    <div class="apy">40% <small data-i18n="apy_label">APY</small></div>
+                    <p class="pool-desc" data-i18n="pool_creator_desc">Exclusive for ecosystem builders</p>
+                    <a href="#" class="pool-btn" data-i18n="pool_btn">Stake Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIQUIDITY -->
+    <section class="liquidity-section" id="liquidity">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="liquidity_title">Liquidity <span>Pool</span></h2>
+                <p data-i18n="liquidity_desc">Real liquidity on Meteora V2</p>
+            </div>
+            <div class="staking-grid">
+                <div class="pool-card" style="background: #FFFFFF;">
+                    <div class="pool-icon">💱</div>
+                    <h3>ADAMO / USDT</h3>
+                    <div class="apy">$299M <small data-i18n="liquidity_label">liquidity</small></div>
+                    <p class="pool-desc" data-i18n="pool_meteora">Meteora V2 • Age: 4 months</p>
+                    <a href="https://www.geckoterminal.com/solana/pools/scY2VPhk1izmz76asME6DRnNcSwY4hnn8m8o51ps4DF" target="_blank" class="pool-btn" data-i18n="pool_open">Open Pool →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTRACT -->
+    <section class="contract-section">
+        <div class="container">
+            <div class="contract-box">
+                <h3 data-i18n="contract_title">📜 Contract Address</h3>
+                <code id="contractAddress">4apVfRL5m7kUzgsTDrg9h3SxVKm7m7Qi8K6ewFRyTbL6</code>
+                <button class="copy-btn" onclick="copyAddress()" data-i18n="contract_copy">📋 Copy Address</button>
+                <div class="links">
+                    <a href="https://opensea.io/token/solana/4apVfRL5m7kUzgsTDrg9h3SxVKm7m7Qi8K6ewFRyTbL6" target="_blank" data-i18n="contract_opensea">View on OpenSea</a>
+                    <a href="https://www.geckoterminal.com/solana/pools/scY2VPhk1izmz76asME6DRnNcSwY4hnn8m8o51ps4DF" target="_blank" data-i18n="contract_gecko">View on GeckoTerminal</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTER -->
+    <section class="counter-section">
+        <div class="container">
+            <div class="counter-grid">
+                <div class="counter-item">
+                    <div class="counter-number counter-visitors">119,800</div>
+                    <div class="counter-label" data-i18n="counter_visitors">Unique Visitors</div>
+                    <div class="counter-timestamp counter-visitor-time" data-i18n="counter_since">Since 2026</div>
+                </div>
+                <div class="counter-item">
+                    <div class="counter-number counter-clients">36</div>
+                    <div class="counter-label" data-i18n="counter_clients">Active Clients</div>
+                    <div class="counter-timestamp counter-client-time" data-i18n="counter_verified">Verified on-chain</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">✦ ADAMO is <span>not a meme</span></span>
+            <span class="ticker-item">✦ Adaptive Decentralized Autonomous Mobility Oracle</span>
+            <span class="ticker-item">✦ Bridge physical movement <span>to blockchain</span></span>
+            <span class="ticker-item">✦ Stake for <span>mobility rewards</span></span>
+            <span class="ticker-item">✦ Italian luxury gateway <span>to Web3</span></span>
+            <span class="ticker-item">✦ Staking APY up to <span>40%</span></span>
+            <span class="ticker-item">✦ ADAMO is <span>not a meme</span></span>
+            <span class="ticker-item">✦ Adaptive Decentralized Autonomous Mobility Oracle</span>
+            <span class="ticker-item">✦ Bridge physical movement <span>to blockchain</span></span>
+            <span class="ticker-item">✦ Stake for <span>mobility rewards</span></span>
+            <span class="ticker-item">✦ Italian luxury gateway <span>to Web3</span></span>
+            <span class="ticker-item">✦ Staking APY up to <span>40%</span></span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="adamo_logo.png" alt="ADAMO" height="28">
+                </div>
+                <div class="footer-links">
+                    <a href="#about" data-i18n="footer_about">About</a>
+                    <a href="#collection" data-i18n="footer_collection">Collection</a>
+                    <a href="#staking" data-i18n="footer_staking">Staking</a>
+                    <a href="fintech.html" data-i18n="footer_fintech">Fintech</a>
+                    <a href="editorial.html" data-i18n="footer_editorial">Editorial</a>
+                    <a href="https://t.me/adamo_token" target="_blank" data-i18n="footer_telegram">Telegram</a>
+                    <a href="#" target="_blank" data-i18n="footer_twitter">Twitter</a>
+                </div>
+            </div>
+            <div class="footer-disclaimer" data-i18n="footer_disclaimer">
+                ⚠️ <strong>ADAMO</strong> is an independent SPL token (Adaptive Decentralized Autonomous Mobility Oracle). 
+                Not affiliated with ADAMO SPA. The token is part of the BYT ecosystem and serves as 
+                a utility token for mobility oracle operations. All brand names are fictional 
+                abbreviations used within the BYT ecosystem.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        const translations = {
+            en: {
+                nav_about: 'About', nav_collection: 'Collection', nav_staking: 'Staking', nav_fintech: 'Fintech', nav_editorial: 'Editorial',
+                wallet_btn: 'Connect Wallet',
+                hero_badge: '⚡ Adaptive Decentralized Autonomous Mobility Oracle',
+                hero_subtitle: 'Bridge Movement to Blockchain — Stake for Rewards',
+                stat_price: 'ADAMO Price', stat_mcap: 'Market Cap', stat_holders: 'Holders', stat_liquidity: 'Liquidity',
+                about_title: 'ADAMO — <span>Not a Meme</span>',
+                about_desc: 'Adaptive Decentralized Autonomous Mobility Oracle. The Italian luxury gateway token of the BYT ecosystem, designed to bridge physical movement to the blockchain. Built for elegance, innovation, and mobility.',
+                feature_mobility: 'Mobility Bridge', feature_oracle: 'Autonomous Oracle', feature_gateway: 'Adaptive Gateway', feature_rewards: 'Stake for Rewards',
+                ecosystem_title: 'BYT <span>Ecosystem</span>', ecosystem_desc: '12 brand tokens in one ecosystem',
+                collection_title: 'ADAMO <span>Collection</span>', collection_desc: 'Italian luxury capsules & digital fashion',
+                staking_title: 'Staking <span>ADAMO</span>', staking_desc: 'Earn up to 30% APY in BYT tokens',
+                pool_basic_title: 'Basic Pool', pool_premium_title: 'Premium Pool', pool_creator_title: 'Creator Pool',
+                pool_basic_desc: 'Entry level for all holders', pool_premium_desc: 'Requires 1,000 ADAMO staked', pool_creator_desc: 'Exclusive for ecosystem builders',
+                pool_btn: 'Stake Now', apy_label: 'APY',
+                liquidity_title: 'Liquidity <span>Pool</span>', liquidity_desc: 'Real liquidity on Meteora V2', liquidity_label: 'liquidity', pool_meteora: 'Meteora V2 • Age: 4 months', pool_open: 'Open Pool →',
+                contract_title: '📜 Contract Address', contract_copy: '📋 Copy Address', contract_opensea: 'View on OpenSea', contract_gecko: 'View on GeckoTerminal',
+                counter_visitors: 'Unique Visitors', counter_clients: 'Active Clients', counter_since: 'Since 2026', counter_verified: 'Verified on-chain',
+                footer_about: 'About', footer_collection: 'Collection', footer_staking: 'Staking', footer_fintech: 'Fintech', footer_editorial: 'Editorial', footer_telegram: 'Telegram', footer_twitter: 'Twitter',
+                footer_disclaimer: '⚠️ <strong>ADAMO</strong> is an independent SPL token (Adaptive Decentralized Autonomous Mobility Oracle). Not affiliated with ADAMO SPA. The token is part of the BYT ecosystem and serves as a utility token for mobility oracle operations. All brand names are fictional abbreviations used within the BYT ecosystem.'
+            },
+            ru: {
+                nav_about: 'О нас', nav_collection: 'Коллекция', nav_staking: 'Стейкинг', nav_fintech: 'Финтех', nav_editorial: 'Журнал',
+                wallet_btn: 'Подключить кошелек',
+                hero_badge: '⚡ Адаптивный децентрализованный автономный оракул мобильности',
+                hero_subtitle: 'Соединяй движение с блокчейном — стейкай для наград',
+                stat_price: 'Цена ADAMO', stat_mcap: 'Рыночная капа', stat_holders: 'Холдеры', stat_liquidity: 'Ликвидность',
+                about_title: 'ADAMO — <span>Не мем</span>',
+                about_desc: 'Адаптивный децентрализованный автономный оракул мобильности. Итальянский люксовый токен-шлюз экосистемы BYT, созданный для соединения физического движения с блокчейном. Создан для элегантности, инноваций и мобильности.',
+                feature_mobility: 'Мост мобильности', feature_oracle: 'Автономный оракул', feature_gateway: 'Адаптивный шлюз', feature_rewards: 'Стейкай для наград',
+                ecosystem_title: 'Экосистема <span>BYT</span>', ecosystem_desc: '12 брендовых токенов в одной экосистеме',
+                collection_title: 'Коллекция <span>ADAMO</span>', collection_desc: 'Итальянские люксовые капсулы и виртуальная мода',
+                staking_title: 'Стейкинг <span>ADAMO</span>', staking_desc: 'Зарабатывайте до 30% годовых в токенах BYT',
+                pool_basic_title: 'Базовый пул', pool_premium_title: 'Премиум пул', pool_creator_title: 'Креаторский пул',
+                pool_basic_desc: 'Входной уровень для всех холдеров', pool_premium_desc: 'Требуется 1,000 ADAMO в стейкинге', pool_creator_desc: 'Эксклюзивно для строителей экосистемы',
+                pool_btn: 'Застейкать', apy_label: 'APY',
+                liquidity_title: 'Пул <span>Ликвидности</span>', liquidity_desc: 'Реальная ликвидность на Meteora V2', liquidity_label: 'ликвидность', pool_meteora: 'Meteora V2 • Возраст: 4 месяца', pool_open: 'Открыть пул →',
+                contract_title: '📜 Адрес контракта', contract_copy: '📋 Копировать адрес', contract_opensea: 'Посмотреть на OpenSea', contract_gecko: 'Посмотреть на GeckoTerminal',
+                counter_visitors: 'Уникальные посетители', counter_clients: 'Активные клиенты', counter_since: 'С 2026', counter_verified: 'Верифицировано в блокчейне',
+                footer_about: 'О нас', footer_collection: 'Коллекция', footer_staking: 'Стейкинг', footer_fintech: 'Финтех', footer_editorial: 'Журнал', footer_telegram: 'Telegram', footer_twitter: 'Twitter',
+                footer_disclaimer: '⚠️ <strong>ADAMO</strong> — независимый SPL-токен (Adaptive Decentralized Autonomous Mobility Oracle). Не аффилирован с ADAMO SPA. Токен является частью экосистемы BYT и служит утилитарным токеном для операций оракула мобильности. Все названия брендов являются вымышленными аббревиатурами, используемыми в экосистеме BYT.'
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            localStorage.setItem('adamo_lang', lang);
+        }
+
+        document.getElementById('langSelect').addEventListener('change', function() { changeLanguage(this.value); });
+        const savedLang = localStorage.getItem('adamo_lang') || 'en';
+        document.getElementById('langSelect').value = savedLang;
+        changeLanguage(savedLang);
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        document.getElementById('connectWallet').addEventListener('click', function() {
+            alert('🔗 Connect Solana Wallet (Phantom/Backpack)');
+        });
+
+        function copyAddress() {
+            const address = document.getElementById('contractAddress').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const orig = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => { btn.textContent = orig; }, 2000);
+            }).catch(() => { alert('Press Ctrl+C to copy: ' + address); });
+        }
+    </script>
+    
+    <script src="counter.js"></script>
+</body>
+</html>
